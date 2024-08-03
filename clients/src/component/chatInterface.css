@@ -1,0 +1,105 @@
+.chatInterface{
+    height: 100vh;
+    width: 100%;
+    background-color: darkcyan;
+
+}
+.bal{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  
+
+}
+.bal-1{
+    
+    background-color: white;
+    animation-name: radiChati-animation-1;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+
+}
+.bal-2{
+    background-color: white;
+    animation-name: radiChati-animation-2;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+    animation-delay: 4s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+
+}
+.bal-3{
+    background-color: white;
+    animation-name: radiChati-animation-3;
+    animation-duration: 4s;
+    animation-iteration-count: 1;
+    animation-delay: 8s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+
+}
+.bal-4{
+    background-color: white;
+    animation-name: radiChati-animation-4;
+    animation-duration: 12s;
+    animation-iteration-count: 1;
+    animation-delay:4s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+
+}
+@keyframes radiChati-animation-1 {
+    0%{
+        background-color: white; 
+    }
+    50%{
+        background-color: #eee; 
+
+    }
+    100%{
+        background-color: #8d8888; 
+
+    }
+}
+@keyframes radiChati-animation-2 {
+    0%{
+        background-color: white; 
+    }
+    50%{
+        background-color: #eee; 
+
+    }
+    100%{
+        background-color: #8d8888; 
+
+    }
+}
+@keyframes radiChati-animation-3 {
+    0%{
+        background-color: white; 
+    }
+    50%{
+        background-color: #eee; 
+
+    }
+    100%{
+        background-color: #8d8888; 
+
+    }
+}
+@keyframes radiChati-animation-4 {
+    0%{
+        background-color: white; 
+    }
+    50%{
+        background-color: #eee; 
+
+    }
+    100%{
+        background-color: #8d8888; 
+
+    }
+}

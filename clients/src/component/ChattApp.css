@@ -1,0 +1,79 @@
+.messageStyle{
+    background-color: #0d6efd;
+    height: 'fit-content';
+    width: 'fit-content';
+    padding: 2px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-weight: 600;
+
+}
+.messageStyleReceived{
+    background-color: rgb(189 189 189);
+    height: 'fit-content';
+    width: 'fit-content';
+    padding: 2px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-weight: 600;
+}
+.roomCardStyle{
+transform: translate(70%,-14%);
+z-index: 55555;
+
+}
+.theGlobal{
+    transform: translate(-38%,-1%);
+
+}
+.online-ball{
+    width:10px;
+    height:10px;
+    border-radius: 50%;
+    background-color: green;
+}
+.logoutCard{
+    transform: translate(180%,-100%);
+    z-index:99999;
+position: absolute;
+}
+.arrowBack{
+    display: none !important;
+}
+ @media (width:400px) {
+    body{
+        width:600px;
+    }
+    .theGlobal{
+        width: 500px !important;
+       
+        transform: translate(-80%,-9%);
+    }
+    .validatCardRoom{
+        transform: translate(-50%,-14%) !important;
+        width: 300px;
+
+    }
+    .here{
+        display: flex;
+        flex-direction: column;
+        margin: 5px;
+    }
+    .info-bar{
+        width: 300px !important;
+    }
+    .info-bar-messenger{
+        width: 300px !important;
+    }
+  .displayGrid{
+    display:none;
+  }
+  .arrowBack{
+    display: flex !important;
+}
+.logoutCard{
+    transform: translate(29%, -144%) !important;
+}
+} 

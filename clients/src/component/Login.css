@@ -1,0 +1,23 @@
+.VisibilityIcon{
+    transform: translate(-111%, 57%);
+}
+.CardActions{
+    transform: translateY(5%);
+    height: 150px;
+}
+.cc{
+    transform: translateY(10%) !important;
+}
+.images{
+    width: 35px;
+    height: 35px;
+}
+@media (width:400px){
+    .login-Card{
+        transform: translate(-29%, -15%);
+    }
+    .alert-check{
+        transform: translate(-27%, -143%);
+
+    }
+}
