@@ -80,7 +80,14 @@ export const Login = () => {
             .post("http://localhost:3001/users", {
               uname: name,
               latestMessage: "here we go",
-              sumTime: sumTime,
+              sumTime: Date.now(),
+              from: "",
+              specificUsers: [
+                {
+                  uname: name,
+                  sumTime: Date.now(),
+                },
+              ],
             })
             .then((response) => {
               console.log("the message sent to");

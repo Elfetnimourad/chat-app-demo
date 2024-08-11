@@ -28,6 +28,26 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+app.post("/updateUsers/:updateName", async (req, res) => {
+  try {
+    const updateName = req.params.updateName;
+    const result = await UserModel.updateOne(
+      { uname: updateName },
+      { $set: { sumTime: Date.now() } }
+    );
+    res.send(result);
+  } catch (err) {
+    res.status(300).send(err);
+  }
+});
+app.get("/updateUsers", async (req, res) => {
+  try {
+    const result = await UserModel.find();
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 app.get("/users", async (req, res) => {
   try {
@@ -39,8 +59,14 @@ app.get("/users", async (req, res) => {
 });
 app.post("/users", async (req, res) => {
   try {
-    const { uname, latestMessage } = req.body;
-    const newUser = new UserModel({ uname, latestMessage });
+    const { uname, latestMessage, sumTime, specificUsers, from } = req.body;
+    const newUser = new UserModel({
+      uname,
+      latestMessage,
+      sumTime,
+      specificUsers,
+      from,
+    });
     await newUser.save();
     res.send(newUser);
   } catch (err) {
@@ -64,7 +90,15 @@ app.delete("/users", async (req, res) => {
     res.status(500).send(err);
   }
 });
-
+app.delete("/users/:deleteMsg", async (req, res) => {
+  const deleteID = req.params.deleteMsg;
+  try {
+    const result = await MsgModel.deleteOne({ uname: deleteMsg });
+    res.send(result);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 app.get("/createMsgs", async (req, res) => {
   try {
     const result = await MsgModel.find();

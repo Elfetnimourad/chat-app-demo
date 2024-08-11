@@ -39,6 +39,10 @@ z-index: 55555;
     z-index:99999;
 position: absolute;
 }
+.menuStyle{
+    transform: translate(57%, -64%);
+
+}
 .arrowBack{
     display: none !important;
 }

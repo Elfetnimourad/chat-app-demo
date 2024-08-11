@@ -101,6 +101,7 @@ export const ChattApp = () => {
       const res = await axios.get("http://localhost:3001/users");
       const b = res.data.filter((e) => e.uname !== name);
       console.log("this data of users", b);
+
       setChatList(b);
     } catch (error) {
       console.log(error);
@@ -110,9 +111,6 @@ export const ChattApp = () => {
     getUsers();
   }, []);
 
-  // useEffect(() => {
-  //   return setAvatarName(inputRef?.current?.textContent || "Anonymous");
-  // }, [inputRef]);
   const deletePrivateConversation = () => {
     // setArrMessages(null);
   };
@@ -250,7 +248,18 @@ export const ChattApp = () => {
     });
     console.log(isFocused);
   };
-
+  const updateUsers = async (updateName) => {
+    await axios
+      .post(`http://localhost:3001/updateUsers/${updateName}`, {
+        uname: updateName,
+        latestMessage: message,
+        sumTime: Date.now(),
+        from: "name",
+      })
+      .then((response) => {
+        console.log("the message sent to");
+      });
+  };
   const sendMessage = (recipientId) => {
     socket.emit("send_message", {
       message: message,
@@ -287,6 +296,7 @@ export const ChattApp = () => {
     createMsg();
     setSeenAndUnseen("sent");
     setMessage("");
+    updateUsers(recipientId);
   };
   const sendMessageRoom = () => {
     socket.emit("send_room_message", {
@@ -636,44 +646,46 @@ export const ChattApp = () => {
                   </div>
                 )}
                 {logout &&
-                  chatList?.map((k) => {
-                    return (
-                      <>
-                        {k.uname && (
-                          <div className="d-flex flex-row mb-2 mt-2">
-                            <Avatar
-                              sx={{
-                                marginRight: 0.5,
-                              }}
-                              onClick={() => clickAvatar(k.uname)}
-                            >
-                              {k.uname.at(0).toUpperCase()}
-                            </Avatar>
-                            {connected && <div className="online-ball"></div>}
-                            <div className="column">
-                              <div className="text-white ms-1" ref={inputRef}>
-                                {k.uname}
-                              </div>
-                              {k.uname === avatarName && (
-                                <div className="text-white">
-                                  {arrOfApi[arrOfApi.length - 1]?.from ===
-                                  sessionStorage
-                                    .getItem("name")
-                                    ?.at(0)
-                                    .toUpperCase()
-                                    ? "you"
-                                    : k.uname}
-                                  {":"}
-                                  {k.uname === avatarName &&
-                                    arrOfApi[arrOfApi.length - 1]?.message}
+                  chatList
+                    ?.sort((a, b) => b.sumTime - a.sumTime)
+                    .map((k) => {
+                      return (
+                        <>
+                          {k.uname && (
+                            <div className="d-flex flex-row mb-2 mt-2">
+                              <Avatar
+                                sx={{
+                                  marginRight: 0.5,
+                                }}
+                                onClick={() => clickAvatar(k.uname)}
+                              >
+                                {k.uname.at(0).toUpperCase()}
+                              </Avatar>
+                              {connected && <div className="online-ball"></div>}
+                              <div className="column">
+                                <div className="text-white ms-1" ref={inputRef}>
+                                  {k.uname}
                                 </div>
-                              )}
+                                {k.uname === avatarName && (
+                                  <div className="text-white">
+                                    {arrOfApi[arrOfApi.length - 1]?.from ===
+                                    sessionStorage
+                                      .getItem("name")
+                                      ?.at(0)
+                                      .toUpperCase()
+                                      ? "you"
+                                      : k.uname}
+                                    {":"}
+                                    {k.uname === avatarName &&
+                                      arrOfApi[arrOfApi.length - 1]?.message}
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </>
-                    );
-                  })}
+                          )}
+                        </>
+                      );
+                    })}
               </Box>
             </Grid>
           </Grid>
@@ -707,32 +719,11 @@ export const ChattApp = () => {
                     <PersonAddAlt1Icon className="cursor-pointer me-2 text-white" />
                     <MoreHorizIcon
                       className="cursor-pointer me-2 text-white"
-                      onClick={() => setOpenMenu(!openMenu)}
                       id="fade-top"
                       aria-controls={openMenu ? "fade-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={openMenu ? "true" : undefined}
                     />
-
-                    <div>
-                      <Menu
-                        className="menuStyle"
-                        id="fade-menu"
-                        MenuListProps={{
-                          "aria-labelledby": "fade-top",
-                        }}
-                        open={openMenu}
-                        onClose={() => setOpenMenu(!openMenu)}
-                      >
-                        <MenuItem onClick={leavingRoomMessage}>
-                          Leave the room
-                        </MenuItem>
-                        <MenuItem onClick={deleteConversation}>
-                          Delete the Conversation
-                        </MenuItem>
-                        <MenuItem>Logout</MenuItem>
-                      </Menu>
-                    </div>
                   </div>
                 </Box>
 
@@ -872,26 +863,8 @@ export const ChattApp = () => {
                       aria-haspopup="true"
                       aria-expanded={privateConversation ? "true" : undefined}
                       className="cursor-pointer me-2 text-white"
-                      onClick={() => setPrivateConversation(true)}
                     />
                   </div>
-
-                  <Menu
-                    className="menuStyle"
-                    id="fade-menu"
-                    MenuListProps={{
-                      "aria-labelledby": "fade-button",
-                    }}
-                    open={privateConversation}
-                    onClose={() => setPrivateConversation(!privateConversation)}
-                    TransitionComponent={Fade}
-                  >
-                    <MenuItem>########</MenuItem>
-                    <MenuItem onClick={deletePrivateConversation}>
-                      Delete this Conversation
-                    </MenuItem>
-                    <MenuItem>Logout</MenuItem>
-                  </Menu>
                 </Box>
 
                 <Box
